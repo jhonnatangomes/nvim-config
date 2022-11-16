@@ -77,6 +77,9 @@ return packer.startup(function(use)
   use "jose-elias-alvarez/null-ls.nvim"
   use 'sindrets/diffview.nvim'
   use 'wakatime/vim-wakatime'
+  use 'numToStr/Comment.nvim'
+  use 'lewis6991/gitsigns.nvim'
+  use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

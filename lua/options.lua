@@ -27,6 +27,7 @@ local options = {
   scrolloff = 8,                           
   sidescrolloff = 8,
   showmode = false,
+  hlsearch = false,
 } 
 
 for k, v in pairs(options) do

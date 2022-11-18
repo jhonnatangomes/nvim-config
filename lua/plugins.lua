@@ -83,6 +83,7 @@ return packer.startup(function(use)
   use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
   use {'nvim-treesitter/playground', requires = 'nvim-treesitter/nvim-treesitter'}
   use 'navarasu/onedark.nvim'
+  use 'folke/tokyonight.nvim'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

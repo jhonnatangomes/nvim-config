@@ -1,7 +1,15 @@
--- Add additional capabilities supported by nvim-cmp
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+local ok2, lspconfig = pcall(require, 'lspconfig')
+local ok3, luasnip = pcall(require, 'luasnip')
+local ok4, cmp = pcall(require, 'cmp')
 
-local lspconfig = require('lspconfig')
+if not ok or not ok2 or not ok3 or not ok4 then
+  return
+end
+
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = cmp_nvim_lsp.default_capabilities()
+
 local opts = {noremap = true, silent = true}
 vim.keymap.set('n', '<space>d', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -58,13 +66,6 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-
-
--- luasnip setup
-local luasnip = require 'luasnip'
-
--- nvim-cmp setup
-local cmp = require 'cmp'
 cmp.setup {
   snippet = {
     expand = function(args)

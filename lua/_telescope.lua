@@ -1,10 +1,14 @@
-local builtin = require("telescope.builtin")
+local ok, telescope = pcall(require, 'telescope')
+local ok2, builtin = pcall(require, 'telescope.builtin')
+if not ok or not ok2 then
+  return 
+end
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
-require('telescope').setup {
+telescope.setup {
   extensions = {
     fzf = {
       fuzzy = true,                    -- false will only do exact matching
@@ -16,4 +20,4 @@ require('telescope').setup {
   }
 }
 
-require('telescope').load_extension('fzf')
+telescope.load_extension('fzf')

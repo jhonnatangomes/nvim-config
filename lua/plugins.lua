@@ -80,6 +80,9 @@ return packer.startup(function(use)
   use 'numToStr/Comment.nvim'
   use 'lewis6991/gitsigns.nvim'
   use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+  use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+  use {'nvim-treesitter/playground', requires = 'nvim-treesitter/nvim-treesitter'}
+  use 'navarasu/onedark.nvim'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

@@ -1,3 +1,27 @@
+local fn = vim.fn
+local prettierExists = fn.executable('prettier');
+local eslintExists = fn.executable('eslint');
+
+if prettierExists == 0 then
+  fn.system {
+    'npm',
+    'i',
+    '-g', 
+    'prettier', 
+  }
+  print "Installing prettier"
+end
+
+if eslintExists == 0 then
+  fn.system {
+    'npm',
+    'i',
+    '-g', 
+    'eslint', 
+  }
+  print "Installing eslint"
+end
+
 local ok, null_ls = pcall(require, "null-ls")
 if not ok then 
   return 

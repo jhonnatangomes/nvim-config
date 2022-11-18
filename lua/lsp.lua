@@ -1,3 +1,18 @@
+local fn = vim.fn
+
+local tsserverExists = fn.executable('typescript-language-server');
+
+if tsserverExists == 0 then
+  fn.system {
+    'npm',
+    'i',
+    '-g', 
+    'typescript', 
+    'typescript-language-server'
+  }
+  print "Installing typescript language server"
+end
+
 local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 local ok2, lspconfig = pcall(require, 'lspconfig')
 local ok3, luasnip = pcall(require, 'luasnip')

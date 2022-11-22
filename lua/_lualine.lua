@@ -1,5 +1,5 @@
-local ok, lualine = pcall(require, 'lualine')
+local ok, lualine = pcall(require, "lualine")
 if not ok then
-  return
+	return
 end
 lualine.setup()

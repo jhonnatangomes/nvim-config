@@ -1,7 +1,6 @@
-local ok, onedark = pcall(require, 'onedark')
+local ok, onedark = pcall(require, "onedark")
 if not ok then
-  return
+	return
 end
 
 onedark.load()
-

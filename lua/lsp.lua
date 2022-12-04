@@ -128,7 +128,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { "tsserver" }
+local servers = { "tsserver", "html", "cssls", "jsonls", "clangd" }
 
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
@@ -144,6 +144,7 @@ for _, lsp in ipairs(servers) do
 				description = "Organize Imports",
 			},
 		},
+		single_file_support = true,
 	})
 end
 

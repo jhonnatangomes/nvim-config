@@ -52,7 +52,10 @@ null_ls.setup({
 	end,
 	sources = {
 		formatting.prettier.with({
-			extra_args = { "--single-quote" },
+			command = "prettier",
+			dynamic_command = function(params)
+				return params.command
+			end,
 		}),
 		diagnostics.eslint.with({
 			condition = function(utils)
@@ -60,5 +63,6 @@ null_ls.setup({
 			end,
 		}),
 		formatting.stylua,
+		formatting.clang_format,
 	},
 })

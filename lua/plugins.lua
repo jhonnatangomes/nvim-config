@@ -53,6 +53,7 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-cmdline") -- cmdline completions
 	use("saadparwaiz1/cmp_luasnip") -- Snippets source for nvim-cmp
 	use("L3MON4D3/LuaSnip") -- Snippets plugin
+	use("rafamadriz/friendly-snippets")
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
@@ -97,6 +98,7 @@ return packer.startup(function(use)
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
 	use("folke/which-key.nvim")
+	use({ "michaelb/sniprun", run = "bash install.sh" })
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

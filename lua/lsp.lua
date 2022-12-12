@@ -23,6 +23,8 @@ if not ok or not ok2 or not ok3 or not ok4 then
 	return
 end
 
+require("luasnip.loaders.from_vscode").lazy_load()
+
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
@@ -128,7 +130,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { "tsserver", "html", "cssls", "jsonls", "clangd" }
+local servers = { "tsserver", "html", "cssls", "jsonls", "clangd", "rust_analyzer", "gopls", "jdtls" }
 
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
@@ -146,6 +148,11 @@ for _, lsp in ipairs(servers) do
 		},
 		single_file_support = true,
 	})
+end
+
+local has_words_before = function()
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 cmp.setup({
@@ -167,6 +174,8 @@ cmp.setup({
 				cmp.select_next_item()
 			elseif luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
+			elseif has_words_before() then
+				cmp.complete()
 			else
 				fallback()
 			end

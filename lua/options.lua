@@ -29,6 +29,7 @@ local options = {
 	showmode = false,
 	hlsearch = false,
 	relativenumber = true,
+	termguicolors = true,
 }
 
 for k, v in pairs(options) do

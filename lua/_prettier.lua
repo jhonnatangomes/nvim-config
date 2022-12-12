@@ -56,6 +56,7 @@ null_ls.setup({
 			dynamic_command = function(params)
 				return params.command
 			end,
+			extra_args = { "--single-quote" },
 		}),
 		diagnostics.eslint.with({
 			condition = function(utils)
@@ -64,5 +65,6 @@ null_ls.setup({
 		}),
 		formatting.stylua,
 		formatting.clang_format,
+		formatting.gofmt,
 	},
 })

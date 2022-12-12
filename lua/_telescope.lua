@@ -15,6 +15,9 @@ vim.keymap.set("n", "<leader>fb", builtin.buffers, {
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {
 	desc = "Help Tags",
 })
+vim.keymap.set("n", "<leader>fw", builtin.grep_string, {
+	desc = "Find Word in Workspace",
+})
 
 telescope.setup({
 	extensions = {

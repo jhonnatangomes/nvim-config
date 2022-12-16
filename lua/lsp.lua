@@ -29,96 +29,46 @@ require("luasnip.loaders.from_vscode").lazy_load()
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
-local opts = { noremap = true, silent = true }
-vim.keymap.set(
-	"n",
-	"<space>df",
-	vim.diagnostic.open_float,
-	{ noremap = true, silent = true, desc = "Open Diagnostics Float" }
-)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { noremap = true, silent = true, desc = "Previous Diagnostic" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { noremap = true, silent = true, desc = "Next Diagnostic" })
-vim.keymap.set(
-	"n",
-	"<space>q",
-	vim.diagnostic.setloclist,
-	{ noremap = true, silent = true, desc = "Add buffer diagnostics to location list" }
-)
+local createOpts = function(desc)
+	local opts = { noremap = true, silent = true }
+	return vim.tbl_extend("error", opts, { desc = desc })
+end
+
+local bufOptsFactory = function(bufnr)
+	local bufopts = { noremap = true, silent = true, buffer = bufnr }
+	return function(desc)
+		return vim.tbl_extend("error", bufopts, { desc = desc })
+	end
+end
+
+local setKeymap = function(keymap, callback, opts)
+	vim.keymap.set("n", keymap, callback, opts)
+end
+
+setKeymap("<space>df", vim.diagnostic.open_float, createOpts("Open Diagnostics Float"))
+setKeymap("[d", vim.diagnostic.goto_prev, createOpts("Previous Diagnostic"))
+setKeymap("]d", vim.diagnostic.goto_next, createOpts("Next Diagnostic"))
+setKeymap("<space>q", vim.diagnostic.setloclist, createOpts("Add buffer diagnostics to location list"))
 
 local on_attach = function(client, bufnr)
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set(
-		"n",
-		"gD",
-		vim.lsp.buf.declaration,
-		{ noremap = true, silent = true, buffer = bufnr, desc = "Go to declaration" }
-	)
-	vim.keymap.set(
-		"n",
-		"gd",
-		vim.lsp.buf.definition,
-		{ noremap = true, silent = true, buffer = bufnr, desc = "Go to definition" }
-	)
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true, buffer = bufnr, desc = "Hover" })
-	vim.keymap.set(
-		"n",
-		"gi",
-		vim.lsp.buf.implementation,
-		{ noremap = true, silent = true, buffer = bufnr, desc = "Go To Implementation" }
-	)
-	vim.keymap.set(
-		"n",
-		"<C-k>",
-		vim.lsp.buf.signature_help,
-		{ noremap = true, silent = true, buffer = bufnr, desc = "Show Signature Help" }
-	)
-	vim.keymap.set(
-		"n",
-		"<space>wa",
-		vim.lsp.buf.add_workspace_folder,
-		{ noremap = true, silent = true, buffer = bufnr, desc = "Add Workspace Folder" }
-	)
-	vim.keymap.set(
-		"n",
-		"<space>wr",
-		vim.lsp.buf.remove_workspace_folder,
-		{ noremap = true, silent = true, buffer = bufnr, desc = "Remove Workspace Folder" }
-	)
-	vim.keymap.set("n", "<space>wl", function()
+	local createBufOpts = bufOptsFactory(bufnr)
+	setKeymap("gD", vim.lsp.buf.declaration, createBufOpts("Go to declaration"))
+	setKeymap("gd", vim.lsp.buf.definition, createBufOpts("Go to definition"))
+	setKeymap("K", vim.lsp.buf.hover, createBufOpts("Hover"))
+	setKeymap("gi", vim.lsp.buf.implementation, createBufOpts("Go To Implementation"))
+	setKeymap("<C-k>", vim.lsp.buf.signature_help, createBufOpts("Show Signature Help"))
+	setKeymap("<space>wa", vim.lsp.buf.add_workspace_folder, createBufOpts("Add Workspace Folder"))
+	setKeymap("<space>wr", vim.lsp.buf.remove_workspace_folder, createBufOpts("Remove Workspace Folder"))
+	setKeymap("<space>wl", function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, { noremap = true, silent = true, buffer = bufnr, desc = "List Workspace Folders" })
-	vim.keymap.set(
-		"n",
-		"<space>D",
-		vim.lsp.buf.type_definition,
-		{ noremap = true, silent = true, buffer = bufnr, desc = "Go to Type definition" }
-	)
-	vim.keymap.set(
-		"n",
-		"<space>rn",
-		vim.lsp.buf.rename,
-		{ noremap = true, silent = true, buffer = bufnr, desc = "Rename Current File" }
-	)
-	vim.keymap.set(
-		"n",
-		"<leader>ca",
-		vim.lsp.buf.code_action,
-		{ noremap = true, silent = true, buffer = bufnr, desc = "Code Action" }
-	)
-	vim.keymap.set(
-		"n",
-		"gr",
-		vim.lsp.buf.references,
-		{ noremap = true, silent = true, buffer = bufnr, desc = "List Symbol References" }
-	)
-	vim.keymap.set(
-		"n",
-		"<leader>oi",
-		typescript.actions.organizeImports,
-		{ noremap = true, silent = true, buffer = bufnr, desc = "Organize Imports" }
-	)
+	end, createBufOpts("List Workspace Folders"))
+	setKeymap("<space>D", vim.lsp.buf.type_definition, createBufOpts("Go to Type Definition"))
+	setKeymap("<space>rn", vim.lsp.buf.rename, createBufOpts("Rename Current File"))
+	setKeymap("<leader>ca", vim.lsp.buf.code_action, createBufOpts("Code Action"))
+	setKeymap("gr", vim.lsp.buf.references, createBufOpts("List Symbol References"))
+	setKeymap("<leader>oi", typescript.actions.organizeImports, createBufOpts("Organize Imports"))
 end
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp

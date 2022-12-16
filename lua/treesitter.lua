@@ -5,6 +5,9 @@ end
 
 treesitter_config.setup({
 	ensure_installed = { "javascript", "typescript" },
+	autotag = {
+		enable = true,
+	},
 	auto_install = true,
 	highlight = {
 		enable = true,

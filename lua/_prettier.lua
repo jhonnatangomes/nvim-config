@@ -25,7 +25,8 @@ if eslintExists == 0 then
 end
 
 local ok, null_ls = pcall(require, "null-ls")
-if not ok then
+local ok2, ts_code_actions = pcall(require, "typescript.extensions.null-ls.code-actions")
+if not ok or not ok2 then
 	return
 end
 local formatting = null_ls.builtins.formatting
@@ -58,7 +59,7 @@ null_ls.setup({
 			end,
 			extra_args = { "--single-quote" },
 		}),
-		diagnostics.eslint.with({
+		diagnostics.eslint_d.with({
 			condition = function(utils)
 				return utils.root_has_file({ ".eslintrc.js", ".eslintrc.json" })
 			end,
@@ -66,5 +67,6 @@ null_ls.setup({
 		formatting.stylua,
 		formatting.clang_format,
 		formatting.gofmt,
+		ts_code_actions,
 	},
 })

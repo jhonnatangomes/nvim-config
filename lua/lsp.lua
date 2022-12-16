@@ -18,8 +18,9 @@ local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 local ok2, lspconfig = pcall(require, "lspconfig")
 local ok3, luasnip = pcall(require, "luasnip")
 local ok4, cmp = pcall(require, "cmp")
+local ok5, typescript = pcall(require, "typescript")
 
-if not ok or not ok2 or not ok3 or not ok4 then
+if not ok or not ok2 or not ok3 or not ok4 or not ok5 then
 	return
 end
 
@@ -43,15 +44,6 @@ vim.keymap.set(
 	vim.diagnostic.setloclist,
 	{ noremap = true, silent = true, desc = "Add buffer diagnostics to location list" }
 )
-
-local function organize_imports()
-	local params = {
-		command = "_typescript.organizeImports",
-		arguments = { vim.api.nvim_buf_get_name(0) },
-		title = "",
-	}
-	vim.lsp.buf.execute_command(params)
-end
 
 local on_attach = function(client, bufnr)
 	-- Mappings.
@@ -124,13 +116,13 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set(
 		"n",
 		"<leader>oi",
-		organize_imports,
+		typescript.actions.organizeImports,
 		{ noremap = true, silent = true, buffer = bufnr, desc = "Organize Imports" }
 	)
 end
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { "tsserver", "html", "cssls", "jsonls", "clangd", "rust_analyzer", "gopls", "jdtls" }
+local servers = { "html", "cssls", "jsonls", "clangd", "rust_analyzer", "gopls", "jdtls" }
 
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
@@ -140,15 +132,20 @@ for _, lsp in ipairs(servers) do
 		flags = {
 			debounce_text_changes = 150,
 		},
-		commands = {
-			OrganizeImports = {
-				organize_imports,
-				description = "Organize Imports",
-			},
-		},
 		single_file_support = true,
 	})
 end
+
+typescript.setup({
+	server = {
+		capabilities = capabilities,
+		on_attach = on_attach,
+		flags = {
+			debounce_text_changes = 150,
+		},
+		single_file_support = true,
+	},
+})
 
 local has_words_before = function()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -190,8 +187,26 @@ cmp.setup({
 			end
 		end, { "i", "s" }),
 	}),
-	sources = {
+	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
+	}, {
+		{ name = "buffer" },
+	}),
+})
+
+cmp.setup.cmdline({ "/", "?" }, {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = "buffer" },
 	},
+})
+
+cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{ name = "cmdline" },
+	}),
 })

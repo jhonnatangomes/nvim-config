@@ -64,9 +64,11 @@ null_ls.setup({
 				return utils.root_has_file({ ".eslintrc.js", ".eslintrc.json" })
 			end,
 		}),
+		diagnostics.flake8,
 		formatting.stylua,
 		formatting.clang_format,
 		formatting.gofmt,
 		ts_code_actions,
+		formatting.rustfmt,
 	},
 })

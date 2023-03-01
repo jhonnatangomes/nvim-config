@@ -31,6 +31,7 @@ if not ok or not ok2 then
 end
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
+local null_ls_utils = require("null-ls.utils")
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
@@ -55,7 +56,8 @@ null_ls.setup({
 		formatting.prettier.with({
 			command = "prettier",
 			dynamic_command = function(params)
-				return params.command
+				local root = null_ls_utils.get_root()
+				return null_ls_utils.path.join(root, "node_modules", ".bin", params.command) or params.command
 			end,
 			extra_args = { "--single-quote" },
 		}),
@@ -70,5 +72,6 @@ null_ls.setup({
 		formatting.gofmt,
 		ts_code_actions,
 		formatting.rustfmt,
+		formatting.sql_formatter,
 	},
 })

@@ -1,29 +1,3 @@
-local fn = vim.fn
-local prettierExists = fn.executable("prettier")
-local eslintExists = fn.executable("eslint")
-
-if prettierExists == 0 then
-	print("Installing prettier. Please wait")
-	fn.system({
-		"npm",
-		"i",
-		"-g",
-		"prettier",
-	})
-	print("Prettier installed.")
-end
-
-if eslintExists == 0 then
-	print("Installing eslint. Please wait")
-	fn.system({
-		"npm",
-		"i",
-		"-g",
-		"eslint",
-	})
-	print("Eslint installed.")
-end
-
 local ok, null_ls = pcall(require, "null-ls")
 local ok2, ts_code_actions = pcall(require, "typescript.extensions.null-ls.code-actions")
 if not ok or not ok2 then

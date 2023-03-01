@@ -94,12 +94,10 @@ return packer.startup(function(use)
 	})
 	use({ "nvim-treesitter/playground", requires = "nvim-treesitter/nvim-treesitter" })
 	use("navarasu/onedark.nvim")
-	use("folke/tokyonight.nvim")
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
-	use("folke/which-key.nvim")
 	use({ "michaelb/sniprun", run = "bash install.sh" })
 	use("windwp/nvim-spectre")
 	use("mfussenegger/nvim-jdtls")

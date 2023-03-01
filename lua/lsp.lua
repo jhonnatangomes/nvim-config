@@ -1,8 +1,8 @@
 local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 local ok2, lspconfig = pcall(require, "lspconfig")
-local ok5, typescript = pcall(require, "typescript")
+local ok3, typescript = pcall(require, "typescript")
 
-if not ok or not ok2 or not ok3 or not ok4 or not ok5 then
+if not ok or not ok2 or not ok3 then
 	return
 end
 

@@ -12,9 +12,6 @@ vim.keymap.set("n", "<leader>fg", builtin.live_grep, {
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {
 	desc = "Find Buffers",
 })
--- vim.keymap.set("n", "<leader>fh", builtin.help_tags, {
--- 	desc = "Help Tags",
--- })
 vim.keymap.set("n", "<leader>fw", builtin.grep_string, {
 	desc = "Find Word in Workspace",
 })
@@ -32,12 +29,17 @@ vim.keymap.set("n", "<leader>ft", builtin.colorscheme, {
 vim.keymap.set("n", "<leader>fc", builtin.git_commits, {
 	desc = "Show git commits",
 })
-vim.keymap.set("n", "<leader>fs", builtin.lsp_workspace_symbols, {
-	desc = "Show git commits",
+vim.keymap.set("n", "<leader>fsw", function()
+	builtin.lsp_workspace_symbols({ query = vim.fn.expand("<cword>") })
+end, {
+	desc = "Show workspace symbols",
 })
--- vim.keymap.set("n", "<leader>fb", builtin.git_branches, {
--- 	desc = "Show git branches",
--- })
+vim.keymap.set("n", "<leader>fsd", builtin.lsp_document_symbols, {
+	desc = "Show document symbols",
+})
+vim.keymap.set("n", "<leader>fr", builtin.lsp_references, {
+	desc = "Show lsp references",
+})
 
 telescope.setup({
 	extensions = {

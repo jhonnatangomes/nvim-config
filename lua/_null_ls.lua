@@ -31,7 +31,12 @@ null_ls.setup({
 			command = "prettier",
 			dynamic_command = function(params)
 				local root = null_ls_utils.get_root()
-				return null_ls_utils.path.join(root, "node_modules", ".bin", params.command) or params.command
+				local dir = null_ls_utils.path.join(root, "node_modules", ".bin")
+				local dir_exists = vim.fn.isdirectory(dir) ~= 0
+				if dir_exists then
+					return null_ls_utils.path.join(dir, params.command)
+				end
+				return params.command
 			end,
 			extra_args = { "--single-quote" },
 		}),

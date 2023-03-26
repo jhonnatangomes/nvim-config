@@ -1,4 +1,5 @@
 local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+require("neodev").setup({})
 local ok2, lspconfig = pcall(require, "lspconfig")
 local ok3, typescript = pcall(require, "typescript")
 
@@ -52,7 +53,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { "html", "cssls", "jsonls", "clangd", "rust_analyzer", "gopls", "jdtls", "pyright" }
+local servers = { "html", "cssls", "jsonls", "clangd", "rust_analyzer", "gopls", "jdtls", "pyright", "lua_ls" }
 
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
@@ -65,12 +66,6 @@ for _, lsp in ipairs(servers) do
 		single_file_support = true,
 	})
 end
-
--- local config = {
---     cmd = {'jdtls'},
---     root_dir = vim.fs.dirname(vim.fs.find({'.gradlew', '.git', 'mvnw'}, { upward = true })[1]),
--- }
--- require('jdtls').start_or_attach(config)
 
 typescript.setup({
 	server = {

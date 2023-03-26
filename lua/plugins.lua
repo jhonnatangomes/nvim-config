@@ -101,6 +101,10 @@ return packer.startup(function(use)
 	use({ "michaelb/sniprun", run = "bash install.sh" })
 	use("windwp/nvim-spectre")
 	use("mfussenegger/nvim-jdtls")
+	use("williamboman/mason.nvim")
+	use("folke/neodev.nvim")
+	use("github/copilot.vim")
+	use({ "catppuccin/nvim", as = "catppuccin" })
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

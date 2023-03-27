@@ -103,8 +103,31 @@ return packer.startup(function(use)
 	use("mfussenegger/nvim-jdtls")
 	use("williamboman/mason.nvim")
 	use("folke/neodev.nvim")
-	use("github/copilot.vim")
+	use({
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
+		end,
+	})
+	use({
+		"zbirenbaum/copilot-cmp",
+		after = { "copilot.lua" },
+		config = function()
+			require("copilot_cmp").setup()
+		end,
+	})
 	use({ "catppuccin/nvim", as = "catppuccin" })
+	use({
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+	})
+	use("JoosepAlviste/nvim-ts-context-commentstring")
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

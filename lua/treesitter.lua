@@ -41,4 +41,30 @@ treesitter_config.setup({
 			show_help = "?",
 		},
 	},
+	textobjects = {
+		select = {
+			enable = true,
+			lookahead = true,
+			keymaps = {
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ab"] = "@block.outer",
+				["ib"] = "@block.inner",
+			},
+		},
+		move = {
+			enable = true,
+			set_jumps = true,
+			goto_next_start = {
+				["]m"] = "@function.outer",
+			},
+			goto_previous_start = {
+				["[m"] = "@function.outer",
+			},
+		},
+	},
+	context_commentstring = {
+		enable = true,
+		enable_autocmd = false,
+	},
 })

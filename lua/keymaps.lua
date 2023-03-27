@@ -8,8 +8,6 @@ keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-keymap("i", "<C-\\>", 'copilot#Accept("")', { expr = true, silent = true })
-
 -- Modes
 --   normal_mode = "n",
 --   insert_mode = "i",

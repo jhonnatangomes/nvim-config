@@ -109,16 +109,9 @@ return packer.startup(function(use)
 		event = "InsertEnter",
 		config = function()
 			require("copilot").setup({
-				suggestion = { enabled = false },
-				panel = { enabled = false },
+				suggestion = { auto_trigger = true },
+				panel = { auto_refresh = true },
 			})
-		end,
-	})
-	use({
-		"zbirenbaum/copilot-cmp",
-		after = { "copilot.lua" },
-		config = function()
-			require("copilot_cmp").setup()
 		end,
 	})
 	use({ "catppuccin/nvim", as = "catppuccin" })

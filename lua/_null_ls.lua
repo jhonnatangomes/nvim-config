@@ -49,9 +49,12 @@ null_ls.setup({
 		formatting.stylua,
 		formatting.clang_format,
 		formatting.gofmt,
+		formatting.rustfmt.with({
+			extra_args = { "--edition=2021" },
+		}),
 		ts_code_actions,
-		formatting.rustfmt,
 		formatting.sql_formatter,
+		formatting.prismaFmt,
 	},
 })
 

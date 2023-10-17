@@ -44,7 +44,6 @@ return packer.startup(function(use)
 	use("wbthomason/packer.nvim") -- Have packer manage itself
 	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
 	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
-	use("Mofiqul/dracula.nvim")
 	use("neovim/nvim-lspconfig")
 	use("hrsh7th/nvim-cmp") -- Autocompletion plugin
 	use("hrsh7th/cmp-nvim-lsp") -- LSP source for nvim-cmp
@@ -98,7 +97,6 @@ return packer.startup(function(use)
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
-	use({ "michaelb/sniprun", run = "bash install.sh" })
 	use("windwp/nvim-spectre")
 	use("mfussenegger/nvim-jdtls")
 	use("williamboman/mason.nvim")

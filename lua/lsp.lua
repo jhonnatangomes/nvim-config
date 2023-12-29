@@ -55,6 +55,10 @@ end
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 local servers = { "html", "cssls", "jsonls", "clangd", "rust_analyzer", "gopls", "jdtls", "pyright", "lua_ls" }
 
+lspconfig.elixirls.setup({
+	cmd = { vim.fn.join({ vim.fn.stdpath("data"), "mason", "packages", "elixir-ls", "language_server.sh" }, "/") },
+})
+
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
 		-- on_attach = my_custom_on_attach,

@@ -55,7 +55,9 @@ null_ls.setup({
 		ts_code_actions,
 		formatting.sql_formatter,
 		formatting.prismaFmt,
+		formatting.mix,
 	},
+	debug = true,
 })
 
 local notify = vim.notify

@@ -82,7 +82,7 @@ return packer.startup(function(use)
 	use("wakatime/vim-wakatime")
 	use("numToStr/Comment.nvim")
 	use("lewis6991/gitsigns.nvim")
-	use({ "akinsho/bufferline.nvim", tag = "v3.*", requires = "nvim-tree/nvim-web-devicons" })
+	use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
 	use({
 		"iamcco/markdown-preview.nvim",
 		run = "cd app && npm install",

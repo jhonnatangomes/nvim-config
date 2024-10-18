@@ -5,9 +5,6 @@ end
 
 treesitter_config.setup({
 	ensure_installed = { "javascript", "typescript" },
-	autotag = {
-		enable = true,
-	},
 	auto_install = true,
 	highlight = {
 		enable = true,
@@ -69,3 +66,5 @@ require("ts_context_commentstring").setup({
 	enable = true,
 	enable_autocmd = false,
 })
+
+require("nvim-ts-autotag").setup({})
